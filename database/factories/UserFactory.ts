@@ -8,6 +8,7 @@ export const UserFactory = Factory.define(User, ({ faker }) => {
     firstname: faker.person.firstName(),
     lastname: faker.person.lastName(),
     age: faker.helpers.rangeToNumber({ min: 18, max: 65 }),
+    phoneNumber: faker.phone.number(),
     description: faker.lorem.paragraph(),
   }
 }).build()

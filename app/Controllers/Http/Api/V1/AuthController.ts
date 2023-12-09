@@ -10,7 +10,7 @@ export default class AuthController {
     const user = auth.user!
     return user.serialize({
       fields: {
-        pick: ['email', 'firstname', 'lastname', 'description', 'age', 'id'],
+        pick: ['email', 'firstname', 'lastname', 'description', 'age', 'phone_number', 'id'],
       },
     })
   }

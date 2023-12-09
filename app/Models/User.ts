@@ -25,6 +25,9 @@ export default class User extends BaseModel {
   public age: number
 
   @column()
+  public phoneNumber: string
+
+  @column()
   public description: string
 
   @column.dateTime({ autoCreate: true })

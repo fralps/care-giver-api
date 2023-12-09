@@ -9,7 +9,7 @@ test.group('#POST /api/v1/login', (group): void => {
     user = await UserFactory.create()
   })
 
-  test('returns status 200', async ({ client }): Promise<void> => {
+  test('returns 200 status', async ({ client }): Promise<void> => {
     const response = await client.post('/api/v1/login').json({
       email: user.email,
       password: 'password',
@@ -30,7 +30,16 @@ test.group('#POST /api/v1/login', (group): void => {
       firstname: user.firstname,
       lastname: user.lastname,
       age: user.age,
+      phone_number: user.phoneNumber,
       description: user.description,
     })
+  })
+})
+
+test.group('#DELETE /api/v1/logout', (): void => {
+  test('returns 401 status when use is not logged in', async ({ client }): Promise<void> => {
+    const response = await client.delete('/api/v1/logout')
+
+    response.assertStatus(401)
   })
 })

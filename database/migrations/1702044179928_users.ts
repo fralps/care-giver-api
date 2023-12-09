@@ -12,6 +12,7 @@ export default class extends BaseSchema {
       table.string('firstname').notNullable()
       table.string('lastname').notNullable()
       table.integer('age').nullable()
+      table.string('phone_number').nullable()
       table.text('description').nullable()
 
       /**

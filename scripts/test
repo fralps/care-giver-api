@@ -7,4 +7,4 @@ if [[ "${TRACE-0}" == "1" ]]; then
   set -o xtrace
 fi
 
-yarn install && node ace migration:fresh && node ace test
+yarn install && NODE_ENV=test node ace migration:fresh && node ace test
