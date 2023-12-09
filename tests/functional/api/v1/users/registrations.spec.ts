@@ -1,6 +1,4 @@
 import { test } from '@japa/runner'
-import User from 'App/Models/User'
-import { UserFactory } from 'Database/factories/UserFactory'
 
 test.group('#POST /api/v1/registrations', (): void => {
   let payload = {
