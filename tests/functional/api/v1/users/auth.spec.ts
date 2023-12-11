@@ -1,12 +1,17 @@
 import { test } from '@japa/runner'
-import { UserFactory } from 'Database/factories/UserFactory'
 import User from 'App/Models/User'
+import Facility from 'App/Models/Facility'
+import { FacilityFactory } from 'Database/factories/FacilityFactory'
 
 test.group('#POST /api/v1/login', (group): void => {
+  let facilityFactory: Promise<Facility>
+  let facility: Facility
   let user: User
 
   group.each.setup(async (): Promise<void> => {
-    user = await UserFactory.create()
+    facilityFactory = FacilityFactory.with('users', 1).create()
+    facility = await facilityFactory
+    user = (await facility).users[0]
   })
 
   test('returns 200 status', async ({ client }): Promise<void> => {
@@ -32,6 +37,12 @@ test.group('#POST /api/v1/login', (group): void => {
       age: user.age,
       phone_number: user.phoneNumber,
       description: user.description,
+      facility: {
+        id: facility.id,
+        name: facility.name,
+        phone_number: facility.phoneNumber,
+        description: facility.description,
+      },
     })
   })
 })

@@ -5,12 +5,15 @@ export default class AuthController {
     const email = request.input('email')
     const password = request.input('password')
 
-    await auth.use('web').attempt(email, password)
+    const user = await auth.use('web').attempt(email, password)
+    await user.load('facility')
 
-    const user = auth.user!
     return user.serialize({
       fields: {
         pick: ['email', 'firstname', 'lastname', 'description', 'age', 'phone_number', 'id'],
+      },
+      relations: {
+        facility: {},
       },
     })
   }
