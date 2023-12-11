@@ -5,7 +5,7 @@ import User from 'App/Models/User'
 export default class RegistrationsController {
   public async store({ request }: HttpContextContract) {
     const payload = await request.validate(RegistrationValidator)
-    User.create(payload)
+    await User.create(payload)
   }
 
   public async destroy({ auth }: HttpContextContract) {

@@ -1,4 +1,5 @@
 import { test } from '@japa/runner'
+import { status, json } from '../../../shared-examples'
 
 test.group('#POST /api/v1/registrations', (): void => {
   let payload = {
@@ -16,7 +17,13 @@ test.group('#POST /api/v1/registrations', (): void => {
   test('returns 200 status', async ({ client }): Promise<void> => {
     const response = await client.post('/api/v1/registrations').json(payload)
 
-    response.assertStatus(200)
+    status(response, 200)
+  })
+
+  test('returns correct Content-Type response', async ({ client }): Promise<void> => {
+    const response = await client.post('/api/v1/registrations').json(payload)
+
+    json(response)
   })
 })
 
@@ -24,6 +31,6 @@ test.group('#DELETE /api/v1/registrations', (): void => {
   test('returns 401 status when no user is logged in', async ({ client }): Promise<void> => {
     const response = await client.delete('/api/v1/registrations')
 
-    response.assertStatus(401)
+    status(response, 401)
   })
 })

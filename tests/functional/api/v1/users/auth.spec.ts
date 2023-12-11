@@ -2,6 +2,7 @@ import { test } from '@japa/runner'
 import User from 'App/Models/User'
 import Facility from 'App/Models/Facility'
 import { FacilityFactory } from 'Database/factories/FacilityFactory'
+import { status, json, cookies } from '../../../shared-examples'
 
 test.group('#POST /api/v1/login', (group): void => {
   let facilityFactory: Promise<Facility>
@@ -20,7 +21,25 @@ test.group('#POST /api/v1/login', (group): void => {
       password: 'password',
     })
 
-    response.assertStatus(200)
+    status(response, 200)
+  })
+
+  test('returns correct cookie name', async ({ client }): Promise<void> => {
+    const response = await client.post('/api/v1/login').json({
+      email: user.email,
+      password: 'password',
+    })
+
+    cookies(response)
+  })
+
+  test('returns correct Content-Type response', async ({ client }): Promise<void> => {
+    const response = await client.post('/api/v1/login').json({
+      email: user.email,
+      password: 'password',
+    })
+
+    json(response)
   })
 
   test('returns correct json response', async ({ client }): Promise<void> => {
@@ -29,7 +48,7 @@ test.group('#POST /api/v1/login', (group): void => {
       password: 'password',
     })
 
-    response.assertBodyContains({
+    response.assertBody({
       id: user.id,
       email: user.email,
       firstname: user.firstname,
@@ -51,6 +70,6 @@ test.group('#DELETE /api/v1/logout', (): void => {
   test('returns 401 status when use is not logged in', async ({ client }): Promise<void> => {
     const response = await client.delete('/api/v1/logout')
 
-    response.assertStatus(401)
+    status(response, 401)
   })
 })
