@@ -5,13 +5,11 @@ import { FacilityFactory } from 'Database/factories/FacilityFactory'
 import { status, json, cookies } from '../../../shared-examples'
 
 test.group('#POST /api/v1/login', (group): void => {
-  let facilityFactory: Promise<Facility>
   let facility: Facility
   let user: User
 
   group.each.setup(async (): Promise<void> => {
-    facilityFactory = FacilityFactory.with('users', 1).create()
-    facility = await facilityFactory
+    facility = await FacilityFactory.with('users', 1).create()
     user = (await facility).users[0]
   })
 
