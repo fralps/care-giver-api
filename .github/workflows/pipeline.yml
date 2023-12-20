@@ -48,12 +48,12 @@ jobs:
 
       - name: 🧪 Run tests
         shell: bash
-        run: pwd
+        run: bash ./scripts/test
 
   linters:
     name: 🔬 Linters
     if: success()
-    needs: build
+    needs: testing
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -71,7 +71,7 @@ jobs:
   licenses:
     name: ©️ Licenses
     if: success()
-    needs: build
+    needs: testing
     runs-on: ubuntu-latest
     steps:
       - name: 🔧 Checkout code
