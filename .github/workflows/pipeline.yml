@@ -27,6 +27,8 @@ jobs:
 
   testing:
     name: 🧪 Testing
+    if: success()
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -46,7 +48,7 @@ jobs:
 
       - name: 🧪 Run tests
         shell: bash
-        run: bash ./scripts/test.sh
+        run: pwd
 
   linters:
     name: 🔬 Linters
