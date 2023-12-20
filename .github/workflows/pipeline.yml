@@ -25,6 +25,29 @@ jobs:
       - name: ⚙️ Build app
         run: yarn run build
 
+  testing:
+    name: 🧪 Testing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      - name: 🔧 Install modules
+        run: yarn install
+
+      - uses: harmon758/postgresql-action@v1
+        with:
+          postgresql db: 'care_giver_api_test'
+          postgresql user: 'developer'
+          postgresql password: 'password'
+
+      - name: 🧪 Run tests
+        shell: bash
+        run: bash ./scripts/test.sh
+
   linters:
     name: 🔬 Linters
     if: success()
